@@ -21,12 +21,7 @@
             <a class="navbar-item">
                 Places to stay
             </a>
-        </div>
 
-        <div class="navbar-end">
-            <?php
-            if (!empty($_SESSION)) {
-                ?>
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
                     User name
@@ -40,24 +35,11 @@
                         Create a new ad
                     </a>
                     <hr class="navbar-divider">
-                    <a class="navbar-item" href="?logout">
+                    <a class="navbar-item">
                         Disconnect
                     </a>
                 </div>
             </div>
-            <?php
-            } else {
-                ?>
-            <div class="navbar-item">
-                <div class="buttons">
-                    <a class="button is-primary" href=" signin.php">
-                        <strong>Sign in</strong>
-                    </a>
-                </div>
-            </div>
-            <?php
-            }
-            ?>
         </div>
     </div>
 </nav>
