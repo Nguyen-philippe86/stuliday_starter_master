@@ -4,7 +4,7 @@ require 'includes/header.php';
 ?>
 <div class="container">
     <h2 class="title is-3">New add</h2>
-    <form action="" method="POST">
+    <form action="process.php" method="POST">
 
         <div class="field">
             <label class="label">Title</label>
@@ -35,33 +35,28 @@ require 'includes/header.php';
         <div class="field">
             <label class="label">Description</label>
             <div class="control">
-                <textarea class="textarea" placeholder="Description"></textarea>
+                <textarea class="textarea" name="description" placeholder="Description"></textarea>
             </div>
         </div>
 
-        <div class="field">
-            <div class="file is-info has-name">
-                <label class="file-label">
-                    <input class="file-input" type="file" name="resume">
-                    <span class="file-cta">
-                        <span class="file-icon">
-                            <i class="fas fa-upload"></i>
-                        </span>
-                        <span class="file-label">
-                            Insert file…
-                        </span>
+        <div class="file">
+            <label class="file-label">
+                <input class="file-input" type="file" name="resume">
+                <span class="file-cta">
+                    <span class="file-icon">
+                        <i class="fas fa-upload"></i>
                     </span>
-                    <span class="file-name">
-                        Screen Shot 2017-07-29 at 15.54.25.png
+                    <span class="file-label">
+                        Choose a file…
                     </span>
-                </label>
-            </div>
+                </span>
+            </label>
         </div>
 
         <div class="field">
             <label class="label">Adresse</label>
             <div class="control has-icons-left has-icons-right">
-                <input class="input" type="adresse" placeholder="Adresse" value="" name="adresse">
+                <input class="input" type="adresse" placeholder="Adresse" value="" name="address">
                 <span class="icon is-small is-left">
                     <i class="fas fa-envelope"></i>
                 </span>
@@ -95,7 +90,7 @@ require 'includes/header.php';
 
         <div class="field is-grouped">
             <div class="control">
-                <button class="button is-link">Submit</button>
+                <button class="button is-link" name="newadd_submit">Submit</button>
             </div>
             <div class="control">
                 <button class="button is-link is-light">Cancel</button>

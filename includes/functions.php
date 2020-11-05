@@ -64,9 +64,8 @@ function connexion($email_login, $pass_login)
         </div>';
     }
 }
-
 // FONCTION AJOUT D'ANNONCE
-function ajoutAnnonce($title, $price, $description, $adresse, $city, $user_id)
+function ajoutAnnonce($title, $price, $description, $address, $city, $author)
 {
     global $conn;
     // Vérification du prix (doit être un entier, et inférieur à 1 million d'euros)
@@ -74,18 +73,18 @@ function ajoutAnnonce($title, $price, $description, $adresse, $city, $user_id)
         // Utilisation du try/catch pour capturer les erreurs PDO/SQL
         try {
             // Création de la requête avec tous les champs du formulaire
-            $sth = $conn->prepare('INSERT INTO products (products_name,description,price,city,category_id,user_id) VALUES (:products_name, :description, :price, :city, :category_id, :user_id)');
-            $sth->bindValue(':products_name', $name, PDO::PARAM_STR);
-            $sth->bindValue(':description', $description, PDO::PARAM_STR);
+            $sth = $conn->prepare('INSERT INTO adverts (title,description,price,city,address,author) VALUES (:title, :description, :price, :city, :address, :author)');
+            $sth->bindValue(':title', $title, PDO::PARAM_STR);
             $sth->bindValue(':price', $price, PDO::PARAM_INT);
+            $sth->bindValue(':description', $description, PDO::PARAM_STR);
+            $sth->bindValue(':address', $address, PDO::PARAM_STR);
             $sth->bindValue(':city', $city, PDO::PARAM_STR);
-            $sth->bindValue(':category_id', $category, PDO::PARAM_INT);
-            $sth->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+            $sth->bindValue(':author', $author, PDO::PARAM_INT);
 
             // Affichage conditionnel du message de réussite
             if ($sth->execute()) {
                 echo "<div class='alert alert-success'> Votre article a été ajouté à la base de données </div>";
-                header('Location: product.php?id='.$conn->lastInsertId());
+                header('Location: index.php?id='.$conn->lastInsertId());
             }
         } catch (PDOException $e) {
             echo 'Error: '.$e->getMessage();

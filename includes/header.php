@@ -49,7 +49,7 @@ require 'includes/functions.php';
                         <!--RECUPERE L'EMAIL DE L'UTILISATEUR ET L'AFFICHE-->
                     </a>
                     <div class="navbar-dropdown">
-                        <a class="navbar-item" href="#">
+                        <a class="navbar-item" href="profil.php">
                             Profile page
                         </a>
                         <a class="navbar-item" href="new_add.php">
