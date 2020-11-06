@@ -91,3 +91,34 @@ function ajoutAnnonce($title, $price, $description, $address, $city, $author)
         }
     }
 }
+// AFFICHAGE ANNONCE
+function affichageAdverts()
+{
+    global $conn;
+    $sth = $conn->prepare('SELECT p.*,c.categories_name,u.username FROM products AS p LEFT JOIN categories AS c ON p.category_id = c.categories_id LEFT JOIN users AS u ON p.user_id = u.id');
+    $sth->execute();
+
+    $adverts = $sth->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($adverts as $adverts) {
+        ?>
+<div class="card mx-2" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title"><?php echo $adverts['title']; ?>
+        </h5>
+        <h6 class="card-subtitle mb-2 text-muted"><?php echo $adverts['description']; ?>
+        </h6>
+        <p class="card-text"><?php echo $adverts['address']; ?>
+        </p>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><?php echo $adverts['price']; ?>
+                €</li>
+            <li class="list-group-item"><?php echo $adverts['city']; ?>
+            </li>
+        </ul>
+        <a href="product.php?id=<?php echo $adverts['id']; ?>"
+            class="card-link btn btn-primary">Afficher article</a>
+    </div>
+</div>
+<?php
+    }
+}

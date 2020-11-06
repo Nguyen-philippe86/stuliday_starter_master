@@ -34,7 +34,7 @@ require 'includes/functions.php';
                     Home
                 </a>
 
-                <a class="navbar-item">
+                <a class="navbar-item" href="adverts.php">
                     Places to stay
                 </a>
             </div>
