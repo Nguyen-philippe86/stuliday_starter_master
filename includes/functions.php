@@ -80,11 +80,10 @@ function ajoutAnnonce($title, $price, $description, $address, $city, $author)
             $sth->bindValue(':address', $address, PDO::PARAM_STR);
             $sth->bindValue(':city', $city, PDO::PARAM_STR);
             $sth->bindValue(':author', $author, PDO::PARAM_INT);
-
             // Affichage conditionnel du message de réussite
             if ($sth->execute()) {
                 echo "<div class='alert alert-success'> Votre article a été ajouté à la base de données </div>";
-                header('Location: index.php?id='.$conn->lastInsertId());
+                header('Location: new_add.php?id='.$conn->lastInsertId());
             }
         } catch (PDOException $e) {
             echo 'Error: '.$e->getMessage();
@@ -95,28 +94,29 @@ function ajoutAnnonce($title, $price, $description, $address, $city, $author)
 function affichageAdverts()
 {
     global $conn;
-    $sth = $conn->prepare('SELECT p.*,c.categories_name,u.username FROM products AS p LEFT JOIN categories AS c ON p.category_id = c.categories_id LEFT JOIN users AS u ON p.user_id = u.id');
+    $sth = $conn->prepare('SELECT * FROM adverts');
     $sth->execute();
 
     $adverts = $sth->fetchAll(PDO::FETCH_ASSOC);
     foreach ($adverts as $adverts) {
         ?>
-<div class="card mx-2" style="width: 18rem;">
+<div class="card border-info mb-3" style="max-width: 18rem;">
+    <div class="card-header"></div>
     <div class="card-body">
-        <h5 class="card-title"><?php echo $adverts['title']; ?>
+        <h5 class="card-title text-info"><?php echo $adverts['title']; ?>
         </h5>
-        <h6 class="card-subtitle mb-2 text-muted"><?php echo $adverts['description']; ?>
+        <h6 class="card-text"><?php echo $adverts['description']; ?>
         </h6>
         <p class="card-text"><?php echo $adverts['address']; ?>
         </p>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item"><?php echo $adverts['price']; ?>
-                €</li>
-            <li class="list-group-item"><?php echo $adverts['city']; ?>
-            </li>
-        </ul>
-        <a href="product.php?id=<?php echo $adverts['id']; ?>"
-            class="card-link btn btn-primary">Afficher article</a>
+
+        <p class="card-text"><?php echo $adverts['price']; ?>
+            €</p>
+        <p class="card-text"><?php echo $adverts['city']; ?>
+
+        </p>
+        <a href="#?id=<?php echo $adverts['id']; ?>"
+            class="card-link btn btn-info">Afficher article</a>
     </div>
 </div>
 <?php
