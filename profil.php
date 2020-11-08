@@ -32,7 +32,7 @@ $user = $res->fetch(PDO::FETCH_ASSOC);
                         </thead>
                         <tbody>
                             <?php
-                    affichageAdvertsByUser($user_id);
+                    affichageAdvertsByUser($ad_id);
                 ?>
                         </tbody>
                     </table>

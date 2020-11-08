@@ -123,10 +123,10 @@ function affichageAdverts()
     }
 }
 // AFFICHAGE ANNONCE BY USER
-function affichageAdvertsByUser($user_id)
+function affichageAdvertsByUser($ad_id)
 {
     global $conn;
-    $sth = $conn->prepare('SELECT * FROM adverts');
+    $sth = $conn->prepare("SELECT * FROM adverts LEFT JOIN users WHERE ad_id = {$ad_id}");
     $sth->execute();
 
     $adverts = $sth->fetchAll(PDO::FETCH_ASSOC);
@@ -137,9 +137,9 @@ function affichageAdvertsByUser($user_id)
     </th>
     <td><?php echo $adverts['description']; ?>
     </td>
-    <td><?php echo $adverts['address']; ?> €
+    <td><?php echo $adverts['address']; ?>
     </td>
-    <td><?php echo $adverts['price']; ?>
+    <td><?php echo $adverts['price']; ?> $
     </td>
     <td><?php echo $adverts['city']; ?>
     </td>
@@ -150,7 +150,7 @@ function affichageAdvertsByUser($user_id)
             class="fa btn btn-outline-warning"><i class="fas fa-pen"></i></a>
     </td>
     <td>
-        <form action="process.php" method="post">
+        <form action="process.php" method="POST">
             <input type="hidden" name="ad_id"
                 value="<?php echo $adverts['products_id']; ?>">
             <input type="submit" name="adverts_delete" class="fa btn btn-outline-danger" value="&#xf2ed;"></input>
@@ -181,5 +181,21 @@ function modifProduits($title, $price, $description, $address, $city, $author)
         } catch (PDOException $e) {
             echo 'Error: '.$e->getMessage();
         }
+    }
+}
+// FONCTION SUPPRESSION DES PRODUITS
+function suppProduits($ad_id, $adverts)
+{
+    global $conn;
+
+    try {
+        $sth = $conn->prepare('DELETE FROM adverts WHERE ad_id =:ad_id');
+        $sth->bindValue(':adverts', $adverts);
+        $sth->bindValue(':ad_id', $ad_id);
+        if ($sth->execute()) {
+            header('Location:profil.php?s');
+        }
+    } catch (PDOException $e) {
+        echo 'Error: '.$e->getMessage();
     }
 }
