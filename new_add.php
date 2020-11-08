@@ -10,12 +10,6 @@ require 'includes/header.php';
             <label class="label">Title</label>
             <div class="control has-icons-left has-icons-right">
                 <input class="input" type="title" placeholder="Title" value="" name="title">
-                <span class="icon is-small is-left">
-                    <i class="fas fa-envelope"></i>
-                </span>
-                <span class="icon is-small is-right">
-                    <i class="fas fa-exclamation-triangle"></i>
-                </span>
             </div>
         </div>
 
@@ -23,12 +17,6 @@ require 'includes/header.php';
             <label class="label">Price</label>
             <div class="control has-icons-left has-icons-right">
                 <input class="input" type="price" placeholder="Price" value="" name="price">
-                <span class="icon is-small is-left">
-                    <i class="fas fa-envelope"></i>
-                </span>
-                <span class="icon is-small is-right">
-                    <i class="fas fa-exclamation-triangle"></i>
-                </span>
             </div>
         </div>
 
@@ -57,12 +45,6 @@ require 'includes/header.php';
             <label class="label">Adresse</label>
             <div class="control has-icons-left has-icons-right">
                 <input class="input" type="adresse" placeholder="Adresse" value="" name="address">
-                <span class="icon is-small is-left">
-                    <i class="fas fa-envelope"></i>
-                </span>
-                <span class="icon is-small is-right">
-                    <i class="fas fa-exclamation-triangle"></i>
-                </span>
             </div>
         </div>
 
@@ -70,32 +52,25 @@ require 'includes/header.php';
             <label class="label">City</label>
             <div class="control has-icons-left has-icons-right">
                 <input class="input" type="city" placeholder="City" value="" name="city">
-                <span class="icon is-small is-left">
-                    <i class="fas fa-envelope"></i>
-                </span>
-                <span class="icon is-small is-right">
-                    <i class="fas fa-exclamation-triangle"></i>
-                </span>
             </div>
-        </div>
 
-        <div class="field">
-            <div class="control">
-                <label class="checkbox">
-                    <input type="checkbox">
-                    I agree to the <a href="#">terms and conditions</a>
-                </label>
+            <div class="field">
+                <div class="control">
+                    <label class="checkbox">
+                        <input type="checkbox">
+                        I agree to the <a href="#">terms and conditions</a>
+                    </label>
+                </div>
             </div>
-        </div>
 
-        <div class="field is-grouped">
-            <div class="control">
-                <button class="button is-link" name="newadd_submit">Submit</button>
+            <div class="field is-grouped">
+                <div class="control">
+                    <button class="button is-link" name="newadd_submit">Submit</button>
+                </div>
+                <div class="control">
+                    <button class="button is-link is-light">Cancel</button>
+                </div>
             </div>
-            <div class="control">
-                <button class="button is-link is-light">Cancel</button>
-            </div>
-        </div>
     </form>
 </div>
 

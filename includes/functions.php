@@ -122,3 +122,64 @@ function affichageAdverts()
 <?php
     }
 }
+// AFFICHAGE ANNONCE BY USER
+function affichageAdvertsByUser($user_id)
+{
+    global $conn;
+    $sth = $conn->prepare('SELECT * FROM adverts');
+    $sth->execute();
+
+    $adverts = $sth->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($adverts as $adverts) {
+        ?>
+<tr>
+    <th scope="row"><?php echo $adverts['title']; ?>
+    </th>
+    <td><?php echo $adverts['description']; ?>
+    </td>
+    <td><?php echo $adverts['address']; ?> €
+    </td>
+    <td><?php echo $adverts['price']; ?>
+    </td>
+    <td><?php echo $adverts['city']; ?>
+    </td>
+    <td> <a href="product.php<?php echo $adverts['title']; ?>"
+            class="fa btn btn-outline-primary"><i class="fas fa-eye"></i></a>
+    </td>
+    <td> <a href="edit_adverts.php?id=<?php echo $adverts['ad_id']; ?>"
+            class="fa btn btn-outline-warning"><i class="fas fa-pen"></i></a>
+    </td>
+    <td>
+        <form action="process.php" method="post">
+            <input type="hidden" name="ad_id"
+                value="<?php echo $adverts['products_id']; ?>">
+            <input type="submit" name="adverts_delete" class="fa btn btn-outline-danger" value="&#xf2ed;"></input>
+        </form>
+    </td>
+</tr>
+<?php
+    }
+}
+// MODIFICATION ANNONCES
+function modifProduits($title, $price, $description, $address, $city, $author)
+{
+    global $conn;
+    if (is_int($price) && $price > 0 && $price < 1000000) {
+        try {
+            $sth = $conn->prepare('UPDATE adverts SET title=:title, price=:price, description=:description, address=:address,city=:city, author=:author');
+            $sth->bindValue(':title', $title);
+            $sth->bindValue(':price', $price);
+            $sth->bindValue(':description', $description);
+            $sth->bindValue(':city', $city);
+            $sth->bindValue(':address', $address);
+            $sth->bindValue(':city', $city);
+            $sth->bindValue(':author', $author);
+            if ($sth->execute()) {
+                echo "<div class='alert alert-success'> Votre modification a bien été prise en compte </div>";
+                header('Location: product.php');
+            }
+        } catch (PDOException $e) {
+            echo 'Error: '.$e->getMessage();
+        }
+    }
+}

@@ -13,12 +13,12 @@
 
     mysqli_close($conn);
 */
-
+// LIAISON AVEC LA BDD
 $servername = 'localhost';
 $dbname = 'stuliday';
 $username = 'root';
 $password = '';
-//On essaie de se connecter
+//On essaie de se connecter a la base de donnees
 try {
     $conn = new PDO("mysql:host={$servername};dbname={$dbname}", $username, $password);
     //On définit le mode d'erreur de PDO sur Exception
