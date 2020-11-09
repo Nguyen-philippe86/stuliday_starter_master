@@ -1,6 +1,6 @@
 <?php
 
-$title = 'Page de profil - Stuliday';
+$title = 'Profil page - Stuliday';
 require 'includes/header.php';
 
 $user_id = $_SESSION['id'];

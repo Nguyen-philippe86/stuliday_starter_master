@@ -4,7 +4,7 @@ $title = 'Modification - Stuliday';
 require 'includes/header.php';
 
 $id = $_GET['id'];
-$sql1 = 'SELECT * FROM adverts';
+$sql1 = "SELECT * FROM adverts WHERE ad_id= {$id}";
 $res1 = $conn->query($sql1);
 $adverts = $res1->fetch(PDO::FETCH_ASSOC);
 
@@ -44,8 +44,8 @@ $adverts = $res1->fetch(PDO::FETCH_ASSOC);
                                 name="city" required>
                         </div>
                         <input type="hidden" name="ad_id"
-                            value="<?php echo $adverts['ad_id']; ?>" />
-                        <button type="submit" class="btn btn-success" name="product_edit">Edit adverts</button>
+                            value="<?php echo $adverts['ad_id']; ?>">
+                        <button type="submit" class="btn btn-success" name="adverts_edit">Edit adverts</button>
                     </form>
                 </div>
             </div>

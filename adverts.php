@@ -28,11 +28,9 @@ if (isset($_POST['search_form'])) {
                     </h6>
                     <p class="card-text"><?php echo $adverts['address']; ?>
                     </p>
-
                     <p class="card-text"><?php echo $adverts['price']; ?>
                         €</p>
                     <p class="card-text"><?php echo $adverts['city']; ?>
-
                     </p>
                     <a href="#?id=<?php echo $adverts['ad_id']; ?>"
                         class="card-link btn btn-info">Afficher article</a>

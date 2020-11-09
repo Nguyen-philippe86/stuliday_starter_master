@@ -20,9 +20,6 @@ if (!empty($_POST['submit_login']) && !empty($_POST['email_login']) && !empty($_
                     <label class="label">Email</label>
                     <div class="control has-icons-left has-icons-right">
                         <input class="input" type="email" placeholder="Type your e-mail" value="" name="email_login">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                        </span>
                     </div>
                 </div>
                 <div class="field">
@@ -30,9 +27,6 @@ if (!empty($_POST['submit_login']) && !empty($_POST['email_login']) && !empty($_
                     <div class="control has-icons-left has-icons-right">
                         <input class="input" type="password" placeholder="Type your password" value=""
                             name="password_login">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                        </span>
                     </div>
                 </div>
 

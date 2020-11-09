@@ -82,7 +82,7 @@ function ajoutAnnonce($title, $price, $description, $address, $city, $author)
             $sth->bindValue(':author', $author, PDO::PARAM_INT);
             // Affichage conditionnel du message de réussite
             if ($sth->execute()) {
-                echo "<div class='alert alert-success'> Votre article a été ajouté à la base de données </div>";
+                echo "<div class='alert alert-success'> Votre annonce a été ajouté</div>";
                 header('Location: new_add.php?id='.$conn->lastInsertId());
             }
         } catch (PDOException $e) {
@@ -100,23 +100,25 @@ function affichageAdverts()
     $adverts = $sth->fetchAll(PDO::FETCH_ASSOC);
     foreach ($adverts as $adverts) {
         ?>
-<div class="card border-info mb-3" style="max-width: 18rem;">
-    <div class="card-header"></div>
-    <div class="card-body">
-        <h5 class="card-title text-info"><?php echo $adverts['title']; ?>
-        </h5>
-        <h6 class="card-text"><?php echo $adverts['description']; ?>
-        </h6>
-        <p class="card-text"><?php echo $adverts['address']; ?>
-        </p>
+<div class="column is-two-fifths is offset-1">
+    <div class="card border-info mb-3" style="max-width: 18rem;">
+        <div class="card-header"></div>
+        <div class="card-body">
+            <h5 class="card-title text-info"><?php echo $adverts['title']; ?>
+            </h5>
+            <h6 class="card-text"><?php echo $adverts['description']; ?>
+            </h6>
+            <p class="card-text"><?php echo $adverts['address']; ?>
+            </p>
 
-        <p class="card-text"><?php echo $adverts['price']; ?>
-            €</p>
-        <p class="card-text"><?php echo $adverts['city']; ?>
+            <p class="card-text"><?php echo $adverts['price']; ?>
+                €</p>
+            <p class="card-text"><?php echo $adverts['city']; ?>
 
-        </p>
-        <a href="#?id=<?php echo $adverts['id']; ?>"
-            class="card-link btn btn-info">Afficher article</a>
+            </p>
+            <a href="#?id=<?php echo $adverts['id']; ?>"
+                class="card-link btn btn-info">Afficher article</a>
+        </div>
     </div>
 </div>
 <?php
@@ -143,7 +145,7 @@ function affichageAdvertsByUser($author)
     </td>
     <td><?php echo $adverts['city']; ?>
     </td>
-    <td> <a href="product.php<?php echo $adverts['ad_id']; ?>"
+    <td> <a href="product.php?id=<?php echo $adverts['ad_id']; ?>"
             class="fa btn btn-outline-primary"><i class="fas fa-eye"></i></a>
     </td>
     <td> <a href="edit_adverts.php?id=<?php echo $adverts['ad_id']; ?>"
@@ -160,21 +162,20 @@ function affichageAdvertsByUser($author)
 <?php
     }
 }
-
 // MODIFICATION ANNONCES
-function modifProduits($title, $price, $description, $address, $city, $author)
+function editAdverts($title, $price, $description, $address, $city, $author)
 {
     global $conn;
     if (is_int($price) && $price > 0 && $price < 1000000) {
         try {
-            $sth = $conn->prepare('UPDATE adverts SET title=:title, price=:price, description=:description, address=:address,city=:city, author=:author');
+            $sth = $conn->prepare('UPDATE adverts SET title=:title, price=:price, description=:description, address=:address,city=:city, WHERE ad_id=:ad_id AND author=:author');
             $sth->bindValue(':title', $title);
             $sth->bindValue(':price', $price);
             $sth->bindValue(':description', $description);
-            $sth->bindValue(':city', $city);
             $sth->bindValue(':address', $address);
             $sth->bindValue(':city', $city);
             $sth->bindValue(':author', $author);
+
             if ($sth->execute()) {
                 echo "<div class='alert alert-success'> Votre modification a bien été prise en compte </div>";
                 header('Location: product.php');
