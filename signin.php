@@ -23,21 +23,15 @@ if (!empty($_POST['submit_login']) && !empty($_POST['email_login']) && !empty($_
                         <span class="icon is-small is-left">
                             <i class="fas fa-envelope"></i>
                         </span>
-                        <span class="icon is-small is-right">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </span>
                     </div>
                 </div>
                 <div class="field">
                     <label class="label">Password</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input class="input" type="password" placeholder="Choose a password" value=""
+                        <input class="input" type="password" placeholder="Type your password" value=""
                             name="password_login">
                         <span class="icon is-small is-left">
                             <i class="fas fa-envelope"></i>
-                        </span>
-                        <span class="icon is-small is-right">
-                            <i class="fas fa-exclamation-triangle"></i>
                         </span>
                     </div>
                 </div>

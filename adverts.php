@@ -34,7 +34,7 @@ if (isset($_POST['search_form'])) {
                     <p class="card-text"><?php echo $adverts['city']; ?>
 
                     </p>
-                    <a href="#?id=<?php echo $adverts['id']; ?>"
+                    <a href="#?id=<?php echo $adverts['ad_id']; ?>"
                         class="card-link btn btn-info">Afficher article</a>
                 </div>
             </div>

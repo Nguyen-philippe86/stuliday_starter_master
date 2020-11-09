@@ -16,7 +16,7 @@ require 'includes/header.php';
         <div class="field">
             <label class="label">Price</label>
             <div class="control has-icons-left has-icons-right">
-                <input class="input" type="price" placeholder="Price" value="" name="price">
+                <input class="input" type="price" max=999999 placeholder="Price" value="" name="price">
             </div>
         </div>
 
@@ -65,7 +65,7 @@ require 'includes/header.php';
 
             <div class="field is-grouped">
                 <div class="control">
-                    <button class="button is-link" name="newadd_submit">Submit</button>
+                    <button class="button is-link" name="newAdd_submit">Submit</button>
                 </div>
                 <div class="control">
                     <button class="button is-link is-light">Cancel</button>

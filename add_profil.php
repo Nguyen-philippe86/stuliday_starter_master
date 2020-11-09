@@ -21,12 +21,6 @@ if (!empty($_POST['submit_signup']) && !empty($_POST['email_signup']) && !empty(
                     <label class="label">Name</label>
                     <div class="control has-icons-left has-icons-right">
                         <input class="input" type="name" placeholder="Enter your name" value="" name="name_signup">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                        </span>
-                        <span class="icon is-small is-right">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </span>
                     </div>
                 </div>
                 <div class="field">
@@ -34,24 +28,12 @@ if (!empty($_POST['submit_signup']) && !empty($_POST['email_signup']) && !empty(
                     <div class="control has-icons-left has-icons-right">
                         <input class="input" type="username" placeholder="Choose a username" value=""
                             name="username_signup">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                        </span>
-                        <span class="icon is-small is-right">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </span>
                     </div>
                 </div>
                 <div class="field">
                     <label class="label">Email</label>
                     <div class="control has-icons-left has-icons-right">
                         <input class="input" type="email" placeholder="Type your e-mail" value="" name="email_signup">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                        </span>
-                        <span class="icon is-small is-right">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </span>
                     </div>
                 </div>
                 <div class="field">
@@ -59,12 +41,6 @@ if (!empty($_POST['submit_signup']) && !empty($_POST['email_signup']) && !empty(
                     <div class="control has-icons-left has-icons-right">
                         <input class="input" type="password" placeholder="Choose a password" value=""
                             name="password1_signup">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                        </span>
-                        <span class="icon is-small is-right">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </span>
                     </div>
                 </div>
                 <div class="field">
@@ -72,12 +48,6 @@ if (!empty($_POST['submit_signup']) && !empty($_POST['email_signup']) && !empty(
                     <div class="control has-icons-left has-icons-right">
                         <input class="input" type="password" placeholder="Re-enter your password" value=""
                             name="password2_signup">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                        </span>
-                        <span class="icon is-small is-right">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </span>
                     </div>
                 </div>
 

@@ -123,10 +123,10 @@ function affichageAdverts()
     }
 }
 // AFFICHAGE ANNONCE BY USER
-function affichageAdvertsByUser($ad_id)
+function affichageAdvertsByUser($author)
 {
     global $conn;
-    $sth = $conn->prepare("SELECT * FROM adverts LEFT JOIN users WHERE ad_id = {$ad_id}");
+    $sth = $conn->prepare("SELECT * FROM adverts INNER JOIN users WHERE author = {$author}");
     $sth->execute();
 
     $adverts = $sth->fetchAll(PDO::FETCH_ASSOC);
@@ -143,7 +143,7 @@ function affichageAdvertsByUser($ad_id)
     </td>
     <td><?php echo $adverts['city']; ?>
     </td>
-    <td> <a href="product.php<?php echo $adverts['title']; ?>"
+    <td> <a href="product.php<?php echo $adverts['ad_id']; ?>"
             class="fa btn btn-outline-primary"><i class="fas fa-eye"></i></a>
     </td>
     <td> <a href="edit_adverts.php?id=<?php echo $adverts['ad_id']; ?>"
@@ -152,7 +152,7 @@ function affichageAdvertsByUser($ad_id)
     <td>
         <form action="process.php" method="POST">
             <input type="hidden" name="ad_id"
-                value="<?php echo $adverts['products_id']; ?>">
+                value="<?php echo $adverts['author']; ?>">
             <input type="submit" name="adverts_delete" class="fa btn btn-outline-danger" value="&#xf2ed;"></input>
         </form>
     </td>
@@ -160,6 +160,7 @@ function affichageAdvertsByUser($ad_id)
 <?php
     }
 }
+
 // MODIFICATION ANNONCES
 function modifProduits($title, $price, $description, $address, $city, $author)
 {
@@ -184,14 +185,14 @@ function modifProduits($title, $price, $description, $address, $city, $author)
     }
 }
 // FONCTION SUPPRESSION DES PRODUITS
-function suppProduits($ad_id, $adverts)
+function suppAdverts($ad_id, $author)
 {
     global $conn;
 
     try {
-        $sth = $conn->prepare('DELETE FROM adverts WHERE ad_id =:ad_id');
-        $sth->bindValue(':adverts', $adverts);
+        $sth = $conn->prepare('DELETE FROM adverts WHERE ad_id =:ad_id AND author =:author');
         $sth->bindValue(':ad_id', $ad_id);
+        $sth->bindValue(':author', $author);
         if ($sth->execute()) {
             header('Location:profil.php?s');
         }
