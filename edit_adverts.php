@@ -12,6 +12,7 @@ $adverts = $res1->fetch(PDO::FETCH_ASSOC);
 <div class="container">
     <div class="columns">
         <div class="column">
+            <h3>Edit adverts</h3>
             <div class="row">
                 <div class="col-12">
                     <form action="process.php" method="POST">

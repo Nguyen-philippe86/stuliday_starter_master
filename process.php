@@ -23,27 +23,27 @@ if ('POST' != $_SERVER['REQUEST_METHOD']) {
     // MODIFICATION ANNONCE
 } elseif (isset($_POST['adverts_edit'])) {
     // Si oui -> Est-ce que TOUS les champs d'édition ont été renseignés ?
-    var_dump($_POST);
+
     if (!empty($_POST['title']) && !empty($_POST['price']) && !empty($_POST['description']) && !empty($_POST['address']) && !empty($_POST['city']) && !empty($_POST['ad_id'])) {
+        echo 'if ok';
         //Si oui -> création des variables avec les données entrées dans le formulaire
         $title = strip_tags($_POST['title']);
-        $price = strip_tags($_POST['price']);
-        $description = intval(strip_tags($_POST['description']));
+        $price = intval(strip_tags($_POST['price']));
+        $description = strip_tags($_POST['description']);
         $address = strip_tags($_POST['address']);
         $city = strip_tags($_POST['city']);
         // Assigne la variable user_id à partir du token de session
         $author = $_SESSION['id']; // Seule la variable user_id correspond à l'ID de la session en cours (donc de l'utilisateur connecté qui crée l'annonce)
-        $id = strip_tags($_POST['ad_id']);
-
+        $id = intval(strip_tags($_POST['ad_id']));
+        var_dump($title, $description, $price, $address, $city, $author, $id);
         echo 'Florian c\'est toi le meilleur';
-        editAdverts($title, $price, $description, $address, $city, $author);
+        editAdverts($title, $price, $description, $address, $city, $author, $id);
     }
     // SUPPRIMER ANNONCE
 } elseif (isset($_POST['adverts_delete'])) {
     // echo "<div class='alert alert-danger'> Vous tentez de supprimer l'article n°".$_POST['product_id'].'</div>';
-    $ad_id = $_POST['ad_id'];
+    $ad_id = intval($_POST['ad_id']);
     $author = $_SESSION['id'];
-
     suppAdverts($ad_id, $author);
 }
 

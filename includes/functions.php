@@ -2,7 +2,7 @@
 
 require 'includes/config.php';
 
-// FONCTION D'INSCRIPTION
+// INSCRIPTION
 function inscription($email, $motDePasse, $motDePasse2)
 {
     global $conn;
@@ -38,7 +38,7 @@ function inscription($email, $motDePasse, $motDePasse2)
         </div>';
     }
 }
-// FONCTION CONNEXION
+// CONNEXION
 function connexion($email_login, $pass_login)
 {
     global $conn;
@@ -64,7 +64,7 @@ function connexion($email_login, $pass_login)
         </div>';
     }
 }
-// FONCTION AJOUT D'ANNONCE
+// AJOUT ANNONCE
 function ajoutAnnonce($title, $price, $description, $address, $city, $author)
 {
     global $conn;
@@ -83,14 +83,14 @@ function ajoutAnnonce($title, $price, $description, $address, $city, $author)
             // Affichage conditionnel du message de réussite
             if ($sth->execute()) {
                 echo "<div class='alert alert-success'> Votre annonce a été ajouté</div>";
-                header('Location: new_add.php?id='.$conn->lastInsertId());
+                header('Location: profil.php?id='.$conn->lastInsertId());
             }
         } catch (PDOException $e) {
             echo 'Error: '.$e->getMessage();
         }
     }
 }
-// AFFICHAGE ANNONCE
+// AFFICHAGE ANNONCES
 function affichageAdverts()
 {
     global $conn;
@@ -100,6 +100,34 @@ function affichageAdverts()
     $adverts = $sth->fetchAll(PDO::FETCH_ASSOC);
     foreach ($adverts as $adverts) {
         ?>
+<div class="column is-two-fifths is offset-1">
+    <div class="card border-info mb-3" style="max-width: 18rem;">
+        <div class="card-header"></div>
+        <div class="card-body">
+            <h5 class="card-title text-info"><?php echo $adverts['title']; ?>
+            </h5>
+            <h6 class="card-text"><?php echo $adverts['description']; ?>
+            </h6>
+            <p class="card-text"><?php echo $adverts['address']; ?>
+            </p>
+            <p class="card-text"><?php echo $adverts['price']; ?>€</p>
+            <p class="card-text"><?php echo $adverts['city']; ?>
+            </p>
+            <a href="#?id=<?php echo $adverts['id']; ?>"
+                class="card-link btn btn-info">Afficher article</a>
+        </div>
+    </div>
+</div>
+<?php
+    }
+}
+function affichageAdvert($id)
+{
+    global $conn;
+    $sth = $conn->prepare("SELECT * FROM adverts WHERE ad_id={$id}");
+    $sth->execute();
+
+    $adverts = $sth->fetch(PDO::FETCH_ASSOC); ?>
 <div class="column is-two-fifths is offset-1">
     <div class="card border-info mb-3" style="max-width: 18rem;">
         <div class="card-header"></div>
@@ -122,39 +150,39 @@ function affichageAdverts()
     </div>
 </div>
 <?php
-    }
 }
+
 // AFFICHAGE ANNONCE BY USER
 function affichageAdvertsByUser($author)
 {
     global $conn;
-    $sth = $conn->prepare("SELECT * FROM adverts INNER JOIN users WHERE author = {$author}");
+    $sth = $conn->prepare("SELECT * FROM adverts INNER JOIN users ON adverts.author = users.id WHERE author = {$author}");
     $sth->execute();
 
     $adverts = $sth->fetchAll(PDO::FETCH_ASSOC);
-    foreach ($adverts as $adverts) {
+    foreach ($adverts as $advert) {
         ?>
 <tr>
-    <th scope="row"><?php echo $adverts['title']; ?>
+    <th scope="row"><?php echo $advert['title']; ?>
     </th>
-    <td><?php echo $adverts['description']; ?>
+    <td><?php echo $advert['description']; ?>
     </td>
-    <td><?php echo $adverts['address']; ?>
+    <td><?php echo $advert['address']; ?>
     </td>
-    <td><?php echo $adverts['price']; ?> $
+    <td><?php echo $advert['price']; ?> $
     </td>
-    <td><?php echo $adverts['city']; ?>
+    <td><?php echo $advert['city']; ?>
     </td>
-    <td> <a href="product.php?id=<?php echo $adverts['ad_id']; ?>"
+    <td> <a href="product.php?id=<?php echo $advert['ad_id']; ?>"
             class="fa btn btn-outline-primary"><i class="fas fa-eye"></i></a>
     </td>
-    <td> <a href="edit_adverts.php?id=<?php echo $adverts['ad_id']; ?>"
+    <td> <a href="edit_adverts.php?id=<?php echo $advert['ad_id']; ?>"
             class="fa btn btn-outline-warning"><i class="fas fa-pen"></i></a>
     </td>
     <td>
         <form action="process.php" method="POST">
             <input type="hidden" name="ad_id"
-                value="<?php echo $adverts['author']; ?>">
+                value="<?php echo $advert['ad_id']; ?>">
             <input type="submit" name="adverts_delete" class="fa btn btn-outline-danger" value="&#xf2ed;"></input>
         </form>
     </td>
@@ -162,30 +190,31 @@ function affichageAdvertsByUser($author)
 <?php
     }
 }
-// MODIFICATION ANNONCES
-function editAdverts($title, $price, $description, $address, $city, $author)
+// MODIFICATION ANNONCE
+function editAdverts($title, $price, $description, $address, $city, $author, $id)
 {
     global $conn;
     if (is_int($price) && $price > 0 && $price < 1000000) {
         try {
-            $sth = $conn->prepare('UPDATE adverts SET title=:title, price=:price, description=:description, address=:address,city=:city, WHERE ad_id=:ad_id AND author=:author');
+            $sth = $conn->prepare('UPDATE adverts SET title=:title, price=:price, description=:description, address=:address,city=:city WHERE ad_id=:ad_id AND author=:author');
             $sth->bindValue(':title', $title);
             $sth->bindValue(':price', $price);
             $sth->bindValue(':description', $description);
             $sth->bindValue(':address', $address);
             $sth->bindValue(':city', $city);
             $sth->bindValue(':author', $author);
+            $sth->bindValue(':ad_id', $id);
 
             if ($sth->execute()) {
                 echo "<div class='alert alert-success'> Votre modification a bien été prise en compte </div>";
-                header('Location: product.php');
+                header("Location: product.php?id={$id}");
             }
         } catch (PDOException $e) {
             echo 'Error: '.$e->getMessage();
         }
     }
 }
-// FONCTION SUPPRESSION DES PRODUITS
+// SUPPRESSION ANNONCE
 function suppAdverts($ad_id, $author)
 {
     global $conn;
